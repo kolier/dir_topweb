@@ -22,3 +22,41 @@ function dir_topweb_ctools_plugin_directory($owner, $plugin_type) {
     return $owner . '/' . $plugin_type;
   }
 }
+
+// -----------------------------------------------------------------------------
+// Utility
+
+
+// -----------------------------------------------------------------------------
+// EntityMetadata property callback
+
+// -----------------
+// dir_link property
+
+/**
+ * 'getter callback' for dir_link rank property.
+ */
+function dir_link_rank_entity_property_getter($data, array $options, $name, $type, $info) {
+  return KtoolsEntityProperty::queryEntities('dir_rank', 'link', $data->id);
+}
+
+/**
+ * 'getter callback' for dir_link ranks property.
+ */
+function dir_link_ranks_entity_property_getter($data, array $options, $name, $type, $info) {
+  $ids = KtoolsEntityProperty::queryEntities('dir_rank', 'link', $data->id);
+  $entities = entity_load('dir_rank', $ids);
+  $ranks = KtoolsEntity::bundleKeys('dir_rank');
+  foreach ($entities as $entity) {
+    $ranks[$entity->type] = $entity->id;
+  }
+
+  return $ranks;
+}
+
+/**
+ * 'getter callback' for dir_link ranking property.
+ */
+function dir_link_ranking_entity_property_getter($data, array $options, $name, $type, $info) {
+  
+}
