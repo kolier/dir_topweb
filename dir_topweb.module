@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Code for the Dir Topweb feature.
+ */
+
+include_once 'dir_topweb.features.inc';
+
+/**
+ * @file
+ * Dir Topweb module file.
+ */
+
+// -----------------------------------------------------------------------------
+// General hook
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function dir_topweb_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'eck' && $plugin_type == 'property_behavior') {
+    return $owner . '/' . $plugin_type;
+  }
+}

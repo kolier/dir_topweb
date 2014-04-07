@@ -1,0 +1,12 @@
+name = Dir Topweb
+description = Top ranking web directory.
+core = 7.x
+package = Web
+version = 7.x-0.1
+project = dir_topweb
+dependencies[] = eck
+dependencies[] = eck
+dependencies[] = features
+features[eck_bundle][] = dir_rank_alexa
+features[eck_entity_type][] = dir_rank
+features[features_api][] = api:2
