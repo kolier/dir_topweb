@@ -9,6 +9,7 @@ $plugin = array(
   'label' => t('Dir ranking score'),
   'default_widget' => 'dir_topweb_dir_rank_score_default_widget',
   'default_formatter' => 'dir_topweb_dir_rank_score_default_formatter',
+  'bundle_form' => 'dir_topweb_dir_rank_score_bundle_form',
 );
 
 /**
@@ -33,5 +34,22 @@ function dir_topweb_dir_rank_score_default_formatter($property, $vars) {
 
   return array(
     '#markup' => strip_tags($entity->{$property}),
+  );
+}
+
+/**
+ * 'bundle_form' callback.
+ */
+function dir_topweb_dir_rank_score_property_bundle_form($property, $vars) {
+  $form = &$vars['form'];
+  $config = $vars['form']['bundle']['#value']->config;
+
+  $form['config_dir_rank_score_factor'] = array(
+    '#title' => t('Score factor'),
+    '#description' => t('Input the factor for the score.'),
+    '#type' => 'textfield',
+    '#size' => 255,
+    '#default_value' => isset($config['dir_rank_score_factor']) ? $config['dir_rank_score_factor'] : '1',
+    '#weight' => 0,
   );
 }
