@@ -41,7 +41,7 @@ function dir_link_rank_entity_property_getter($data, array $options, $name, $typ
  */
 function dir_link_ranks_entity_property_getter($data, array $options, $name, $type, $info) {
   $entity_ids = KtoolsEntityProperty::queryEntities('dir_rank', 'link', $data->id);
-  $ranks = KtoolsEntity::listBundleKey('dir_rank', $entity_ids);
+  $ranks = KtoolsEntity::listByBundleKey('dir_rank', $entity_ids);
 
   return $ranks;
 }
@@ -50,5 +50,13 @@ function dir_link_ranks_entity_property_getter($data, array $options, $name, $ty
  * 'getter callback' for dir_link ranking property.
  */
 function dir_link_ranking_entity_property_getter($data, array $options, $name, $type, $info) {
-  // @todo
+  $link_wrapper = entity_metadata_wrapper('dir_link', $data);
+  $ranking = 0;
+  foreach ($link_wrapper->rank as $rank_wrapper) {
+    $rank = $rank_wrapper->value();
+    $config = eck_extras_entity_get_bundle_config($rank);
+    $ranking += $rank->score * $config['score']['factor'];
+  }
+
+  return $ranking;
 }
